@@ -7,7 +7,7 @@ bool isBackingUp = false;
 class DumbPopup final : public Popup<>, GJAccountBackupDelegate {
 protected:
 	void onClose(CCObject* sender) override {
-		if (isBackingUp) return Notification::create("Hold on! I'm still backing up...")->show();
+		if (isBackingUp) return Notification::create("Slow down there! I'm still backing up.")->show();
 		Popup::onClose(sender);
 	}
 	bool setup() override {
@@ -29,7 +29,7 @@ protected:
 	}
 public:
 	void onBackup(CCObject* sender) {
-		// if (isBackingUp) return Notification::create("Slow down there! I'm still backing up.")->show();
+		if (isBackingUp) return Notification::create("Slow down there! I'm still backing up.")->show();
 		auto gjam = GJAccountManager::get();
 		gjam->m_backupDelegate = this;
 		bool result = gjam->getAccountBackupURL();
