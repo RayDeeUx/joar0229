@@ -25,17 +25,20 @@ protected:
 	}
 public:
 	void onBackup(CCObject* sender) {
-		if (isBackingUp) return;
+		if (isBackingUp) return Notification::create("Slow down there! I'm still backing up.")->show();
 		GJAccountManager::get()->getAccountBackupURL();
 		isBackingUp = true;
+		Notification::create("Backing up now...")->show();
 	}
 	void onCloseGame(CCObject* sender) {
 		if (MenuLayer* menuLayer = CCScene::get()->getChildByType<MenuLayer>(0)) menuLayer->endGame();
 	}
 	virtual void backupAccountFinished() {
+		log::info("backupAccountFinished called");
 		isBackingUp = false;
 	}
     virtual void backupAccountFailed(BackupAccountError, int) {
+		log::info("backupAccountFailed called");
 		isBackingUp = false;
 	}
 	static DumbPopup* create() {
@@ -67,7 +70,6 @@ class $modify(MyMenuLayer, MenuLayer) {
 		return true;
 	}
 	void onDumbPopup(CCObject*) {
-		if (isBackingUp) return;
 		if (DumbPopup* dp = DumbPopup::create(); dp) dp->show();
 	}
 };
