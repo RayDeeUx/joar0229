@@ -8,7 +8,7 @@ class DumbPopup final : public Popup<>, GJAccountBackupDelegate {
 protected:
 	bool setup() override {
 		m_noElasticity = true;
-		this->setTitle("FOO BAR TEST POPUP REMOVE THIS LATER"_spr);
+		this->setTitle("Control Panel"_spr);
 		CCMenuItemSpriteExtra* backupButton = CCMenuItemSpriteExtra::create(
 			ButtonSprite::create("Backup", 1.f),
 			this, menu_selector(DumbPopup::onBackup)
@@ -26,7 +26,9 @@ protected:
 public:
 	void onBackup(CCObject* sender) {
 		// if (isBackingUp) return Notification::create("Slow down there! I'm still backing up.")->show();
-		bool result = GJAccountManager::get()->getAccountBackupURL();
+		auto gjam = GJAccountManager::get();
+		gjam->m_backupDelegate = this;
+		bool result = gjam->getAccountBackupURL();
 		isBackingUp = true;
 		Notification::create(fmt::format("Backing up now... (Status: {})", result))->show();
 	}
@@ -35,10 +37,12 @@ public:
 	}
 	virtual void backupAccountFinished() {
 		log::info("backupAccountFinished called");
+		GJAccountManager::get()->m_backupDelegate = nullptr;
 		isBackingUp = false;
 	}
     virtual void backupAccountFailed(BackupAccountError, int) {
 		log::info("backupAccountFailed called");
+		GJAccountManager::get()->m_backupDelegate = nullptr;
 		isBackingUp = false;
 	}
 	static DumbPopup* create() {
