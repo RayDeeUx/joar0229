@@ -25,10 +25,10 @@ protected:
 	}
 public:
 	void onBackup(CCObject* sender) {
-		if (isBackingUp) return Notification::create("Slow down there! I'm still backing up.")->show();
-		GJAccountManager::get()->getAccountBackupURL();
+		// if (isBackingUp) return Notification::create("Slow down there! I'm still backing up.")->show();
+		bool result = GJAccountManager::get()->getAccountBackupURL();
 		isBackingUp = true;
-		Notification::create("Backing up now...")->show();
+		Notification::create(fmt::format("Backing up now... (Status: {})", result))->show();
 	}
 	void onCloseGame(CCObject* sender) {
 		if (MenuLayer* menuLayer = CCScene::get()->getChildByType<MenuLayer>(0)) menuLayer->endGame();
@@ -61,7 +61,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		bottomMenu->addChild(
 			CCMenuItemSpriteExtra::create(
 				CircleButtonSprite::createWithSpriteFrameName(
-					"pixelitem_139_001.png", 1.f, CircleBaseColor::Green,
+					"pixelitem_139_001.png", .75f, CircleBaseColor::Green,
 					CircleBaseSize::MediumAlt
 				), this, menu_selector(MyMenuLayer::onDumbPopup)
 			)
