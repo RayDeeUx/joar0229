@@ -38,11 +38,13 @@ public:
 	virtual void backupAccountFinished() {
 		log::info("backupAccountFinished called");
 		GJAccountManager::get()->m_backupDelegate = nullptr;
+		Notification::create("Backup finished. It succeeded.")->show();
 		isBackingUp = false;
 	}
-    virtual void backupAccountFailed(BackupAccountError, int) {
+    virtual void backupAccountFailed(BackupAccountError p0, int p1) {
 		log::info("backupAccountFailed called");
 		GJAccountManager::get()->m_backupDelegate = nullptr;
+		Notification::create("Backup finished. It failed. (p0: {}, p1: {})", static_cast<int>(p0), p1)->show();
 		isBackingUp = false;
 	}
 	static DumbPopup* create() {
