@@ -1,3 +1,2 @@
-# ModName Changelog
-## v1.0.0
-- Initial release (on GitHub).
+# Joar0229 Changelog
+(there is none.)
