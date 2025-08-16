@@ -37,6 +37,7 @@ public:
 		Notification::create(fmt::format("Backing up now... (Status: {})", result))->show();
 	}
 	void onCloseGame(CCObject* sender) {
+		if (isBackingUp) return Notification::create("Slow down there! I'm still backing up.")->show();
 		if (MenuLayer* menuLayer = CCScene::get()->getChildByType<MenuLayer>(0)) menuLayer->endGame();
 	}
 	virtual void backupAccountFinished() {
