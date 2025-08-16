@@ -6,6 +6,10 @@ bool isBackingUp = false;
 
 class DumbPopup final : public Popup<>, GJAccountBackupDelegate {
 protected:
+	void onClose(CCObject* sender) override {
+		if (isBackingUp) return Notification::create("Hold on! I'm still backing up...")->show();
+		Popup::onClose(sender);
+	}
 	bool setup() override {
 		m_noElasticity = true;
 		this->setTitle("Control Panel"_spr);
