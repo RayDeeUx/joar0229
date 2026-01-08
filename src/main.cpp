@@ -95,56 +95,12 @@ class $modify(MyGJAccountManager, GJAccountManager) {
 		}
 		return result;
 	}
-	void onGetAccountBackupURLCompleted(gd::string response, gd::string tag) {
-		GJAccountManager::onGetAccountBackupURLCompleted(response, tag);
-		if (isBackingUp) {
-			log::info("----------------------------------");
-			log::info("response: {}", response);
-			log::info("tag: {}", tag);
-		}
-	}
-	bool backupAccount(gd::string url) {
-		bool result = GJAccountManager::backupAccount(url);
-		if (isBackingUp) {
-			log::info("----------------------------------");
-			log::info("url: {}", url);
-		}
-		return result;
-	}
-	void ProcessHttpRequest(gd::string endpoint, gd::string params, gd::string tag, GJHttpType httpType) {
-		GJAccountManager::ProcessHttpRequest(endpoint, params, tag, httpType);
-		if (isBackingUp) {
-			log::info("----------------------------------");
-			log::info("endpoint: {}", endpoint);
-			log::info("params: {}", params);
-			log::info("tag: {}", tag);
-			log::info("httpType as int: {}", static_cast<int>(httpType));
-		}
-	}
 	void onProcessHttpRequestCompleted(cocos2d::extension::CCHttpClient* client, cocos2d::extension::CCHttpResponse* response) {
 		GJAccountManager::onProcessHttpRequestCompleted(client, response);
 		if (isBackingUp) {
 			log::info("----------------------------------");
 			log::info("client: {}", client);
 			log::info("response: {}", response);
-		}
-	}
-	void handleIt(bool success, gd::string response, gd::string tag, GJHttpType type) {
-		GJAccountManager::handleIt(success, response, tag, type);
-		if (isBackingUp) {
-			log::info("----------------------------------");
-			log::info("success: {}", success);
-			log::info("response: {}", response);
-			log::info("tag: {}", tag);
-			log::info("httpType as int: {}", static_cast<int>(type));
-		}
-	}
-	void onBackupAccountCompleted(gd::string response, gd::string tag) {
-		GJAccountManager::onBackupAccountCompleted(response, tag);
-		if (isBackingUp) {
-			log::info("----------------------------------");
-			log::info("response: {}", response);
-			log::info("tag: {}", tag);
 		}
 	}
 };
