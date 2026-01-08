@@ -136,7 +136,7 @@ class $modify(MyGJAccountManager, GJAccountManager) {
 			log::info("success: {}", success);
 			log::info("response: {}", response);
 			log::info("tag: {}", tag);
-			log::info("httpType as int: {}", static_cast<int>(httpType));
+			log::info("httpType as int: {}", static_cast<int>(type));
 		}
 	}
 	void onBackupAccountCompleted(gd::string response, gd::string tag) {
