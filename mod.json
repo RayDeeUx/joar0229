@@ -1,14 +1,14 @@
 {
-	"geode": "4.4.0",
+	"geode": "5.0.0-beta.4",
 	"gd": {
-		"win": "2.2074",
-		"mac": "2.2074",
-		"ios": "2.2074",
-		"android": "2.2074"
+		"win": "2.2081",
+		"mac": "2.2081",
+		"ios": "2.2081",
+		"android": "2.2081"
 	},
 	"id": "raydeeux.joar0229",
 	"name": "Joar0229",
-	"version": "v0.0.0-alpha.1",
+	"version": "v0.0.0-alpha.2",
 	"developer": "RayDeeUx",
 	"description": "Mod for Joar0229."
 }

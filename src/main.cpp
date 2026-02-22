@@ -4,13 +4,15 @@ using namespace geode::prelude;
 
 bool isBackingUp = false;
 
-class DumbPopup final : public Popup<>, GJAccountBackupDelegate {
+class DumbPopup final : public Popup, GJAccountBackupDelegate {
 protected:
 	void onClose(CCObject* sender) override {
 		if (isBackingUp) return Notification::create("Slow down there! I'm still backing up.")->show();
 		Popup::onClose(sender);
 	}
-	bool setup() override {
+	bool init() override {
+		if (!geode::Popup::init(256, 160)) return false;
+
 		m_noElasticity = true;
 		this->setTitle("Control Panel"_spr);
 		CCMenuItemSpriteExtra* backupButton = CCMenuItemSpriteExtra::create(
@@ -55,7 +57,7 @@ public:
 	static DumbPopup* create() {
 		auto ret = new DumbPopup();
 		const CCSize ws = CCDirector::get()->getWinSize() / 2.f;
-		if (ret && ret->initAnchored(256, 160)) {
+		if (ret && ret->init()) {
 			ret->autorelease();
 			return ret;
 		}
